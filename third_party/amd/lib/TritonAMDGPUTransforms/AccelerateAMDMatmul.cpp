@@ -1186,6 +1186,12 @@ public:
           dotTypes.c.isInteger(32) && dotTypes.d.isInteger(32) && k % 4 == 0) {
         return true;
       }
+
+      //RDNA4 FP64 cases
+      if (AMD::deduceISAFamily(arch) == AMD::ISAFamily::RDNA3 && dotTypes.a.isF64() && dotTypes.b.isF64() && dotTypes.c.isF64() &&
+          dotTypes.d.isF64() && k % 2 == 0) {
+        return true;
+      }
     }
 
     auto expectedElTy = dotTypes.a;
